@@ -2,7 +2,14 @@
 import { Image } from "astro:assets";
 import ThreeBlogsView from "./ThreeBlogsView.astro";
 const { blogs, BlogPage } = Astro.props;
-const Form = await getEntryBySlug("contact", "form");
+
+interface FormType {
+  data: {
+    accessKey: string | null;
+  };
+}
+
+const Form: FormType | null = await getEntryBySlug("contact", "form");
 const accessKey = Form ? Form.data.accessKey : null;
 import NewsLetterForm from "../functional/NewsLetterForm";
 import { getEntryBySlug } from "astro:content";

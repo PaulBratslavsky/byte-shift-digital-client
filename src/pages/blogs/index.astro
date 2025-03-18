@@ -1,9 +1,9 @@
 ---
-import { getCollection, getEntryBySlug } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import Layout from "src/layout/Layout.astro";
 let blogs = await getCollection("blogs");
-blogs = blogs.filter((blog) => blog.slug.startsWith("blog-"));
-const BlogPage = await getEntryBySlug("blogs", "index");
+blogs = blogs.filter((blog: any) => blog.slug.startsWith("blog-"));
+const BlogPage = await getEntry("blogs", "index");
 blogs.sort((a, b) => b.data.date - a.data.date);
 import BlogSection from "src/components/ui/BlogSection.astro";
 import BlogTabSection from "src/components/ui/blog/BlogTabSection.astro";
@@ -16,9 +16,9 @@ const uniqueCatogories = new Set(catogories);
 
 <Layout title='Blogs'>
   <!-- blog section start -->
-  <BlogSection blogs={blogs} BlogPage={BlogPage.data} />
+  <BlogSection blogs={blogs} BlogPage={BlogPage?.data} />
   <!-- blog sction end -->
   <!-- bog-tab section start -->
-  <BlogTabSection uniqueCatogories={uniqueCatogories} blogs={blogs} BlogPage={BlogPage.data}/>
+  <BlogTabSection uniqueCatogories={uniqueCatogories} blogs={blogs} BlogPage={BlogPage?.data}/>
   <!-- bog-tab section end -->
 </Layout>

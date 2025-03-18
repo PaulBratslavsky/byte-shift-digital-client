@@ -1,26 +1,27 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layout/Layout.astro";
-import { getEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 import FormSection from "src/components/ui/contact/FormSection.astro";
 import Branches from "src/components/ui/contact/Branches.astro";
 const ContactDetails = await getCollection("contact");
 const branches = ContactDetails.filter((branch: any) =>
   branch.slug.startsWith("branch-")
 );
-const form = await getEntryBySlug("contact", "form");
-const index = await getEntryBySlug("contact", "index");
-const socialMedia = await getEntryBySlug("contact", "socialmedialinks");
+const form = await getEntry("contact", "form");
+const index = await getEntry("contact", "index");
+const socialMedia = await getEntry("contact", "socialmedialinks");
+
 ---
 
 <Layout title='Contact' background='dark'>
-  <FormSection form={form} socialMedia={socialMedia.data} index={index.data} />
+  <FormSection form={form} socialMedia={socialMedia?.data} index={index?.data} />
 
   <!-- main content start -->
 
   <!-- contact-location section start -->
 
   <!-- contact-location section ends-->
-  <Branches branches={branches} header={index.data.branchHeader}></Branches>
+  <Branches branches={branches} header={index?.data?.branchHeader}></Branches>
   <!-- main content end -->
 </Layout>

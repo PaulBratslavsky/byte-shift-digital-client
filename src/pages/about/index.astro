@@ -1,5 +1,5 @@
 ---
-import { getEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 import WhyBest from "src/components/ui/WhyBest.astro";
 import AboutBanner from "src/components/ui/about/AboutBanner.astro";
 import CareerSection from "src/components/ui/about/CareerSection.astro";
@@ -7,13 +7,13 @@ import GallerySection from "src/components/ui/about/GallerySection.astro";
 import RecentWork from "src/components/ui/about/RecentWork.astro";
 import TeamSection from "src/components/ui/about/TeamSection.astro";
 import Layout from "src/layout/Layout.astro";
-const AboutSection = await getEntryBySlug("about", "index");
-const globalStats = await getEntryBySlug("about", "globalstats");
-const gallery = await getEntryBySlug("about", "gallery");
-const HomePage = await getEntryBySlug("HomePage", "index");
-const { whyBest } = HomePage.data;
-const Team = await getEntryBySlug("about", "team");
-const Experts = await getEntryBySlug("about", "experts");
+const AboutSection = await getEntry("about", "index");
+const globalStats = await getEntry("about", "globalstats");
+const gallery = await getEntry("about", "gallery");
+const HomePage = await getEntry("HomePage", "index");
+const { whyBest } = HomePage?.data;
+const Team = await getEntry("about", "team");
+const Experts = await getEntry("about", "experts");
 ---
 
 <Layout title='About'>

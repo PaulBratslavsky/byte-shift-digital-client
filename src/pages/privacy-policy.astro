@@ -1,8 +1,9 @@
 ---
-import { getEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 import Layout from "src/layout/Layout.astro";
-const TermsConditionBody = await getEntryBySlug("termsCondition", "index");
-const { Content } = await TermsConditionBody.render();
+const TermsConditionBody = await getEntry("termsCondition", "index");
+const data = await TermsConditionBody?.rendered;
+const Content = data?.html;
 ---
 
 <Layout title='Terms & Condition'>
@@ -15,6 +16,6 @@ const { Content } = await TermsConditionBody.render();
       data-aos-duration='1500'>
       Privacy Policy
     </h1>
-    <Content />
+    <div class="prose max-w-none" set:html={Content} />
   </div>
 </Layout>

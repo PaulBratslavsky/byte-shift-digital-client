@@ -1,15 +1,17 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection, getEntryBySlug } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { slug } from "github-slugger";
 import ProjectCard from "src/components/ui/project/ProjectCard.astro";
 import Layout from "src/layout/Layout.astro";
 const projects = await getCollection("projects");
-const ProjectPage = await getEntryBySlug("projects", "index");
+const ProjectPage = await getEntry("projects", "index");
+
+
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
   return projects
-    .filter((project) => project.slug !== "index")
+    .filter((project: any) => project.slug !== "index")
     .map((project: any) => {
       return {
         params: { single: slug(project.data.name) },
@@ -22,7 +24,7 @@ const { data } = project;
 const { Content } = await project.render();
 const RelatedProjects = projects
   .filter(
-    (projectFilter) =>
+    (projectFilter: any) =>
       projectFilter.slug !== "index" &&
       projectFilter.data.services.some((item: any) =>
         project.data.services.includes(item)

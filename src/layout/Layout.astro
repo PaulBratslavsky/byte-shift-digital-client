@@ -5,9 +5,9 @@ import { AstroFont } from "astro-font";
 import Header from "src/components/ui/Header.astro";
 import Footer from "src/components/ui/Footer.astro";
 import CtaBanner from "src/components/ui/CtaBanner.astro";
-import { getEntryBySlug } from "astro:content";
-const Theme = await getEntryBySlug("theme", "index");
-const { favicon, themeName, description } = Theme.data;
+import { getEntry } from "astro:content";
+const Theme = await getEntry("theme", "index");
+const { favicon, themeName, description } = Theme?.data;
 ---
 
 <html lang='en'>

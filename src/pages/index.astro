@@ -4,15 +4,15 @@ import Testimonial from "../components/functional/Testimonial";
 import HeroSection from "src/components/ui/HeroSection.astro";
 import Brands from "src/components/ui/Brands.astro";
 import Layout from "../layout/Layout.astro";
-import { getEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 import Services from "src/components/ui/Services.astro";
 import Approach from "src/components/ui/Approach.astro";
 import ProjectSlider from "src/components/ui/ProjectSlider.astro";
 import WhyBest from "src/components/ui/WhyBest.astro";
 import BlogSection from "src/components/ui/BlogSection.astro";
-const HomePage = await getEntryBySlug("HomePage", "index");
-const ProjectPage = await getEntryBySlug("projects", "index");
-const { projectSliderHeader } = ProjectPage.data;
+const HomePage = await getEntry("HomePage", "index");
+const ProjectPage = await getEntry("projects", "index");
+const { projectSliderHeader } = ProjectPage?.data;
 const {
   banner,
   clientImages,
@@ -20,19 +20,19 @@ const {
   agileApproach,
   expertise,
   whyBest,
-} = HomePage.data;
+} = HomePage?.data;
 const projectsCollection = await getCollection("projects");
 const projects = projectsCollection.filter((project: any) =>
   project.slug.startsWith("project-")
 );
 let blogs = await getCollection("blogs");
 blogs = blogs.filter((blog: any) => blog.slug.startsWith("blog-"));
-const BlogPage = await getEntryBySlug("blogs", "index");
+const BlogPage = await getEntry("blogs", "index");
 let testimonials = await getCollection("testimonials");
 testimonials = testimonials.filter((testimonial: any) =>
   testimonial.slug.startsWith("testimonial-")
 );
-const TestimonialPage = await getEntryBySlug("testimonials", "index");
+const TestimonialPage = await getEntry("testimonials", "index");
 blogs.sort((a: any, b: any) => b.data.date - a.data.date);
 ---
 

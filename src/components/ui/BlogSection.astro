@@ -3,16 +3,10 @@ import { Image } from "astro:assets";
 import ThreeBlogsView from "./ThreeBlogsView.astro";
 const { blogs, BlogPage } = Astro.props;
 
-interface FormType {
-  data: {
-    accessKey: string | null;
-  };
-}
-
-const Form: FormType | null = await getEntryBySlug("contact" as string, "form" as string );
+const Form = await getEntry("contact", "form");
 const accessKey = Form ? Form.data.accessKey : null;
 import NewsLetterForm from "../functional/NewsLetterForm";
-import { getEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 ---
 
 <section class='mt-160 max-lg:mt-100 max-sm:mt-20'>

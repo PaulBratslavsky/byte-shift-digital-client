@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
-import { getEntryBySlug } from "astro:content";
-const Ctabanner = await getEntryBySlug("footer", "ctabanner");
-const { header, description, button, image, backgroundImage } = Ctabanner.data;
+import { getEntry } from "astro:content";
+const Ctabanner = await getEntry("footer", "ctabanner");
+const { header, description, button, image, backgroundImage } = Ctabanner?.data;
 ---
 
 <section

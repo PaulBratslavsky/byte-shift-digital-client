@@ -1,11 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import { getEntryBySlug } from "astro:content";
-const { data } = await getEntryBySlug("header", "index");
-const FooterData = await getEntryBySlug("footer", "index");
-const { mail, phone, address, logo, copyRight } = FooterData.data;
-const { routes } = data;
-const SocialMedia = await getEntryBySlug("contact", "socialmedialinks");
+import { getEntry } from "astro:content";
+const data  = await getEntry("header", "index");
+const FooterData = await getEntry("footer", "index");
+const { mail, phone, address, logo, copyRight } = FooterData?.data;
+const { routes } = data?.data;
+const SocialMedia = await getEntry("contact", "socialmedialinks");
 ---
 
 <footer class='w-full text-white bg-black-strom pt-120 pb-8 max-lg:pt-100'>
@@ -101,7 +101,7 @@ const SocialMedia = await getEntryBySlug("contact", "socialmedialinks");
           </div>
           <div class='gap-4 mt-7 flex flex-col max-sm:gap-07 max-sm:mt-5'>
             {
-              SocialMedia.data.map((data: any) => (
+              SocialMedia?.data?.map((data: any) => (
                 <a
                   href={data.link}
                   class='leading-6 text-base font-normal no-underline text-white font-inter max-sm:text-sm max-sm:leading-5 hover:text-white-strom'>

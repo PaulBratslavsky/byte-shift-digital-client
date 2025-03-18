@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import { getEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 const { background } = Astro.props;
-const { data } = await getEntryBySlug("header", "index");
-const { routes, lightLogo, darkLogo, button } = data;
+const data = await getEntry("header", "index");
+const { routes, lightLogo, darkLogo, button } = data?.data;
 ---
 
 <header class='w-full max-dxl:max-w-container-3xl'>

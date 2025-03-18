@@ -2,16 +2,16 @@
 import { getCollection } from "astro:content";
 import { slug } from "github-slugger";
 let blogs = await getCollection("blogs");
-const BlogPage = await getEntryBySlug("blogs", "index");
-blogs = blogs.filter((blog) => blog.slug.startsWith("blog-"));
+const BlogPage = await getEntry("blogs", "index");
+blogs = blogs.filter((blog: any) => blog.slug.startsWith("blog-"));
 import Layout from "../../layout/Layout.astro";
 import BlogTabSection from "../../components/ui/blog/BlogTabSection.astro";
-import { getEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 import { Image } from "astro:assets";
 import ShareLinks from "../../components/functional/ShareLinks";
 export async function getStaticPaths() {
   let blogs = await getCollection("blogs");
-  blogs = blogs.filter((blog) => blog.slug.startsWith("blog-"));
+  blogs = blogs.filter((blog: any) => blog.slug.startsWith("blog-"));
   return blogs.map((blog: any) => {
     return {
       params: { single: slug(blog.data.title) },
@@ -78,7 +78,7 @@ max-lg:mx-060 max-md:mx-10 max-sm:mx-5'>
   <BlogTabSection
     uniqueCatogories={uniqueCatogories}
     blogs={blogs}
-    BlogPage={BlogPage.data}
+    BlogPage={BlogPage?.data}
   />
   <!-- bog-tab section end -->
 </Layout>

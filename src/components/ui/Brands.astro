@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+
+const { clientImages } = Astro.props;
+---
+
+<section class='mt-140 max-lg:mt-100 max-sm:mt-20'>
+  <div
+    class='max-w-container-l mx-auto
+  max-lg:mx-060 max-md:mx-10 max-sm:mx-5'
+    data-aos='fade-up'
+    data-aos-duration='2000'>
+    <div class='flex items-center'>
+      <div
+        class='w-full flex-grow flex-shrink basis-0% border-t border-t-black-strom'>
+      </div>
+      <div class='bg-black-strom rounded-lg py-05 px-5 max-sm:px-010'>
+        <div
+          class='text-white uppercase font-semibold font-inter leading-22 tracking-tightxl max-sm:text-xs max-sm:leading-5'>
+          trusted and love by
+        </div>
+      </div>
+      <div
+        class='w-full flex-grow flex-shrink basis-0% border-t border-t-black-strom'>
+      </div>
+    </div>
+    <div
+      class='flex items-center justify-between mt-38 max-lg:gap-4 max-lg:grid max-lg:grid-cols-3 max-sm:gap-010 max-sm:mt-5'>
+      {
+        clientImages.map((client: any) => {
+          return <Image src={client} alt={"client"} height={200} width={200} />;
+        })
+      }
+    </div>
+  </div>
+</section>

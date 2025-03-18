@@ -1,0 +1,155 @@
+---
+const { title, background } = Astro.props;
+import "../../src/input.css";
+import { AstroFont } from "astro-font";
+import Header from "src/components/ui/Header.astro";
+import Footer from "src/components/ui/Footer.astro";
+import CtaBanner from "src/components/ui/CtaBanner.astro";
+import { getEntryBySlug } from "astro:content";
+const Theme = await getEntryBySlug("theme", "index");
+const { favicon, themeName, description } = Theme.data;
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <link rel='shortcut icon' href={favicon || "/favicon.svg"} />
+    <meta name='theme-name' content={themeName} />
+    <meta name='generator' content={Astro.generator} />
+    <meta
+      name='viewport'
+      content='width=device-width, initial-scale=1, maximum-scale=5'
+    />
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <meta name='description' content={description} />
+    <title>{themeName+" | "+title}</title>
+    <AstroFont
+      config={[
+        {
+          src: [],
+          preload: false,
+          display: "swap",
+          name: "Satoshi",
+          fallback: "sans-serif",
+          cssVariable: "satoshi",
+          googleFontsURL:
+            "https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,301,701,300,501,401,901,400&display=swap",
+        },
+        {
+          src: [],
+          preload: false,
+          display: "swap",
+          name: "Inter",
+          fallback: "sans-serif",
+          cssVariable: "inter",
+          googleFontsURL:
+            "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap",
+        },
+        {
+          src: [],
+          preload: false,
+          display: "swap",
+          name: "Fraunces",
+          fallback: "sans-serif",
+          cssVariable: "fraunces",
+          googleFontsURL:
+            "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,700,100&display=swap",
+        },
+      ]}
+    />
+    <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet' />
+    <script src='https://unpkg.com/aos@2.3.1/dist/aos.js' is:inline defer
+    ></script>
+  </head>
+
+  <body>
+    <!-- header Section start -->
+    <Header background={background} />
+    <!-- header Section end -->
+    <!-- main content start -->
+    <slot />
+    <!-- main content end -->
+    <CtaBanner />
+    <!-- footer start -->
+    <!-- <Footer /> -->
+    <!-- footer end -->
+    <script>
+      import AOS from "aos";
+
+      // Initialize AOS
+      AOS.init();
+
+      const modal = document.getElementById("myModal") as HTMLElement;
+      const btn = document.getElementById("openModalBtn") as HTMLElement;
+      const svg = document.getElementById("mySvg") as HTMLElement;
+
+      function toggleModal(): void {
+        if (modal.style.display === "block") {
+          modal.style.transition = "ease-in-out 0.3s";
+          modal.style.opacity = "0";
+          modal.style.pointerEvents = "none";
+          modal.style.top = "0px";
+          modal.style.display = "none";
+          modal.style.opacity = "1";
+          modal.style.pointerEvents = "auto";
+          modal.style.top = "-33ppx";
+
+          btn.style.backgroundColor = "transparent";
+          svg.style.color = "#333";
+        } else {
+          modal.style.display = "block";
+          modal.style.height = "333px";
+          modal.style.transition = "ease-in-out 0.3s";
+          modal.style.opacity = "0";
+          modal.style.pointerEvents = "none";
+          modal.style.top = "0px";
+          modal.style.opacity = "1";
+          modal.style.pointerEvents = "auto";
+          modal.style.top = "65px";
+
+          btn.style.backgroundColor = "#101010";
+          svg.style.color = "white";
+        }
+      }
+
+      btn.onclick = function (): void {
+        toggleModal();
+      };
+
+      window.onclick = function (event: MouseEvent): void {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      const tabLabels = document.querySelectorAll(
+        "#tabs div"
+      ) as NodeListOf<HTMLLIElement>;
+      const tabPanes = document.getElementsByClassName(
+        "tab-contents"
+      ) as HTMLCollectionOf<HTMLElement>;
+
+      function activateTab(e: Event): void {
+        e.preventDefault();
+
+        tabLabels.forEach(function (label: HTMLLIElement) {
+          label.classList.remove("active");
+        });
+        [].forEach.call(tabPanes, function (pane: HTMLElement) {
+          pane.classList.remove("active");
+        });
+
+        const parentNode = (e.target as HTMLAnchorElement).parentNode;
+        if (parentNode && parentNode instanceof HTMLElement) {
+          parentNode.classList.add("active");
+        }
+        const clickedTab = (e.target as HTMLAnchorElement).getAttribute("href");
+        document.querySelector(clickedTab!)!.classList.add("active");
+      }
+
+      tabLabels.forEach(function (label: HTMLLIElement) {
+        label.addEventListener("click", activateTab);
+      });
+    </script>
+  </body>
+</html>

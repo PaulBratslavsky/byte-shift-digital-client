@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+const { gallery } = Astro.props;
+const { galleryTitle, galleryImages } = gallery.data;
+---
+
+<section class='mt-160 mb-260 max-lg:mt-100 max-md:mt-20 max-lg:mb-0'>
+  <div
+    class='max-w-container-3.5xl max-xl:mx-20 mx-auto max-lg:mx-060 max-md:mx-10 max-sm:mx-5'>
+    <div>
+      <h1
+        data-aos='fade-up'
+        data-aos-duration='1500'
+        class='max-w-732 mx-auto text-center tracking-tightg leading-72 text-64xl font-bold font-fraunces max-lg:text-56xl max-lg:leading-64 max-md:text-5xl max-md:leading-56 max-sm:text-4xl max-sm:leading-44'>
+        {galleryTitle}
+      </h1>
+    </div>
+    <div
+      class='justify-center mt-072 flex max-md:mt-060 max-sm:mt-10'
+      data-aos='fade-up'
+      data-aos-duration='1000'>
+      <Image
+        src={galleryImages[0]}
+        class='w-420 h-560 rounded-2xl relative top-12 left-47 -rotate-20 max-xl:w-30% max-xl:h-full max-lg:top-100 max-md:top-20 max-md:left-30 max-sm:top-10 max-sm:left-5'
+        alt={"GaleryImage"}
+        height={560}
+        width={420}
+      />
+      <Image
+        src={galleryImages[1]}
+        class='z-3 w-420 h-560 rounded-2xl relative max-lg:w-40% max-xl:w-32% max-xl:h-full'
+        alt={"GaleryImage"}
+        height={560}
+        width={420}
+      />
+      <Image
+        src={galleryImages[2]}
+        class='w-420 h-560 rounded-2xl relative top-12 right-47 rotate-20 max-xl:w-30% max-xl:h-full max-lg:top-100 max-md:top-20 max-md:right-30 max-sm:top-10 max-sm:right-5'
+        alt={"GaleryImage"}
+        height={560}
+        width={420}
+      />
+    </div>
+  </div>
+</section>

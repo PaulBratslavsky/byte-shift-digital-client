@@ -1,0 +1,132 @@
+---
+import { Image } from "astro:assets";
+import { getCollection, getEntryBySlug } from "astro:content";
+import { slug } from "github-slugger";
+import ProjectCard from "src/components/ui/project/ProjectCard.astro";
+import Layout from "src/layout/Layout.astro";
+const projects = await getCollection("projects");
+const ProjectPage = await getEntryBySlug("projects", "index");
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects
+    .filter((project) => project.slug !== "index")
+    .map((project: any) => {
+      return {
+        params: { single: slug(project.data.name) },
+        props: { project },
+      };
+    });
+}
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await project.render();
+const RelatedProjects = projects
+  .filter(
+    (projectFilter) =>
+      projectFilter.slug !== "index" &&
+      projectFilter.data.services.some((item: any) =>
+        project.data.services.includes(item)
+      )
+  )
+  .slice(0, 2);
+---
+
+<Layout title={data.name || "Project"} background='dark'>
+  <div
+    class='max-w-1084 mt-100 mx-auto relative max-xl:mx-20 max-lg:mx-060 max-md:mt-20 max-md:mx-10 max-sm:mt-060 max-sm:mx-5'>
+    <div data-aos='fade-up' data-aos-duration='1500'>
+      <h1
+        class='max-w-732 mx-auto text-center text-white tracking-tightg my-0 text-68xl leading-76 font-bold font-fraunces max-lg:text-6xl max-lg:leading-68 max-md:text-52xl max-md:leading-60 max-sm:text-44xl max-sm:leading-52'>
+        {data.name}
+      </h1>
+    </div>
+    <div
+      class='w-full h-600 mt-16 max-lg:h-auto max-lg:mt-060 max-sm:mt-10'
+      data-aos='fade-up'
+      data-aos-duration='800'>
+      <Image src={data.image} class='w-full h-full object-cover rounded-xl' height={1000} width={1000} alt={'Blog'}/>
+    </div>
+    <div
+      class='mt-8 flex justify-between max-xl:gap-5 max-lg:flex-col max-lg:gap-10 max-sm:gap-5'
+      data-aos='fade-up'
+      data-aos-duration='1000'>
+      <div class='w-340 border border-black rounded-xl px-7 py-9 max-xl:w-full'>
+        <div
+          class='text-black-strom text-center tracking-tighth text-32xl font-bold leading-10 font-fraunces'>
+          Company
+        </div>
+        <div class='text-center mt-3 text-lg font-normal leading-7 font-inter'>
+          {data.company}
+        </div>
+      </div>
+      <div class='w-340 border border-black rounded-xl px-7 py-9 max-xl:w-full'>
+        <div
+          class='text-black-strom text-center tracking-tighth text-32xl font-bold leading-10 font-fraunces'>
+          Services
+        </div>
+        <div class='text-center mt-3 text-lg font-normal leading-7 font-inter'>
+          {data.services.join(",")}
+        </div>
+      </div>
+      <div class='w-340 border border-black rounded-xl px-7 py-9 max-xl:w-full'>
+        <div
+          class='text-black-strom text-center tracking-tighth text-32xl font-bold leading-10 font-fraunces'>
+          Website
+        </div>
+        <div class='text-center mt-3 text-lg font-normal leading-7 font-inter'>
+          {data.website}
+        </div>
+      </div>
+    </div>
+    <div
+      class='mt-20 max-lg:mt-060 max-sm:mt-10'
+      data-aos='fade-up'
+      data-aos-duration='500'>
+      <div>
+        <Content />
+      </div>
+    </div>
+  </div>
+
+  <!-- main content start -->
+
+  <!-- contact-location section start -->
+  <section class='mt-160 block max-lg:mt-100 max-sm:mt-20'>
+    <div
+      class='max-w-container-l mx-auto max-xl:mx-20
+  max-lg:mx-060 max-md:mx-10 max-sm:mx-5'>
+      <h1
+        class='max-w-700 text-center mx-auto text-black-strom tracking-tightg my-0 text-64xl font-bold leading-72 font-fraunces max-md:text-56xl max-lg:leading-64 max-md:text-5xl max-md:leading-56 max-sm:text-4xl max-sm:leading-44'
+        data-aos='fade-up'
+        data-aos-duration='1500'>
+        {ProjectPage?.data?.similiarProjectHeader}
+      </h1>
+      <div class='mt-16 max-lg:mt-060 max-sm:mt-10'>
+        <div>
+          <div
+            class='grid grid-cols-2 gap-8 max-lg:grid-cols-1 max-sm:gap-5'
+            data-aos='fade-up'
+            data-aos-duration='1000'>
+            <div>
+              {
+                RelatedProjects[0] && (
+                  <ProjectCard size='large' project={RelatedProjects[0]} />
+                )
+              }
+            </div>
+            <div>
+              {
+                RelatedProjects[1] && (
+                  <ProjectCard size='large' project={RelatedProjects[1]} />
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- contact-location section ends-->
+
+  <!-- main content end -->
+</Layout>

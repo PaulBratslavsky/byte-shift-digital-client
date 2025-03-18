@@ -1,0 +1,144 @@
+---
+import { Image } from "astro:assets";
+import { getEntryBySlug } from "astro:content";
+const { data } = await getEntryBySlug("header", "index");
+const FooterData = await getEntryBySlug("footer", "index");
+const { mail, phone, address, logo, copyRight } = FooterData.data;
+const { routes } = data;
+const SocialMedia = await getEntryBySlug("contact", "socialmedialinks");
+---
+
+<footer class='w-full text-white bg-black-strom pt-120 pb-8 max-lg:pt-100'>
+  <div
+    class='max-w-container-l mx-auto max-lg:mx-060 max-md:mx-10 max-sm:mx-5 max-sm:gap-12 max-xl:mx-20'>
+    <div class='flex justify-between w-full max-lg:flex-col max-lg:gap-60'>
+      <div
+        class='flex-shrink-0 text-center md:mx-0 md:text-left'
+        data-aos='fade-up'
+        data-aos-duration='1500'>
+        <a
+          href='/'
+          class='flex items-center font-medium text-gray-900 title-font justify-start'>
+          <Image
+            src={logo}
+            class='inline-block h-10 w-32'
+            height={100}
+            width={100}
+            alt={"Logo"}
+          /></a
+        >
+
+        <div
+          class='mt-12 max-md:mt-10 max-sm:mt-30 gap-x-5 gap-y-5 flex-col flex'>
+          <span class='flex gap-07 items-center'>
+            <Image
+              src='/image/mail.svg'
+              class='inline-block'
+              height={40}
+              width={40}
+              alt={"Mail"}
+            />
+            <a
+              class='text-white no-underline text-lg font-normal leading-7 font-inter hover:text-white-strom max-sm:text-base max-sm:leading-5'
+              href=`mailto:${mail}`
+              >{mail}
+            </a>
+          </span>
+          <span class='flex gap-07 items-center'>
+            <Image
+              src='/image/contact.svg'
+              class='inline-block'
+              height={40}
+              width={40}
+              alt={"Contact"}
+            />
+            <a
+              class='text-white no-underline text-lg font-normal leading-7 font-inter hover:text-white-strom max-sm:text-base max-sm:leading-5'
+              href=`tel:${phone}`
+              >{phone}
+            </a>
+          </span>
+          <span class='flex gap-07 items-center'>
+            <Image
+              src='/image/address.svg'
+              class='inline-block'
+              height={40}
+              width={40}
+              alt={"Address"}
+            />
+            <div
+              class='text-white no-underline text-lg font-normal leading-7 font-inter hover:text-white-strom max-sm:text-base max-sm:leading-5'>
+              {address}
+            </div>
+          </span>
+        </div>
+      </div>
+      <div
+        class='w-580 max-md:w-full max-sm:flex-col max-sm:gap-30 justify-between flex max-xl:justify-evenly'>
+        <div data-aos='fade-up' data-aos-duration='1500'>
+          <div
+            class='uppercase text-base leading-7 font-semibold text-white tracking-tighlm font-fraunces'>
+            Pages
+          </div>
+          <div class='gap-4 mt-7 flex flex-col max-sm:gap-07 max-sm:mt-5'>
+            {
+              routes.map((route: any) => {
+                return (
+                  <a
+                    href={route.path}
+                    class='leading-6 text-base font-normal no-underline text-white font-inter max-sm:text-sm max-sm:leading-5 hover:text-white-strom'>
+                    {route.name}
+                  </a>
+                );
+              })
+            }
+          </div>
+        </div>
+        <div data-aos='fade-up' data-aos-duration='2000'>
+          <div
+            class='uppercase text-base leading-7 font-semibold text-white tracking-tighlm font-fraunces'>
+            Social media
+          </div>
+          <div class='gap-4 mt-7 flex flex-col max-sm:gap-07 max-sm:mt-5'>
+            {
+              SocialMedia.data.map((data: any) => (
+                <a
+                  href={data.link}
+                  class='leading-6 text-base font-normal no-underline text-white font-inter max-sm:text-sm max-sm:leading-5 hover:text-white-strom'>
+                  {data.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <div data-aos='fade-up' data-aos-duration='2500'>
+          <div
+            class='uppercase text-base leading-7 font-semibold text-white tracking-tighlm font-fraunces'>
+            Legal
+          </div>
+          <div class='gap-4 mt-7 flex flex-col max-sm:gap-07 max-sm:mt-5'>
+            <a
+              href='/terms-condition'
+              class='leading-6 text-base font-normal no-underline max-sm:text-sm max-sm:leading-5 text-white font-inter'
+              >Terms & Condition</a
+            >
+            <a
+              href='/privacy-policy'
+              class='leading-6 text-base font-normal no-underline max-sm:text-sm max-sm:leading-5 text-white font-inter'
+              >Privacy Policy</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='border-t border-raisin-black flex justify-center pt-6 mt-100'>
+      <div
+        class='leading-6 text-base font-normal no-underline text-white font-inter'>
+        © All rights reserved
+        <a href={copyRight.link} class='text-white font-inter' target='_blank'
+          ><strong>{copyRight.name}</strong>.</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

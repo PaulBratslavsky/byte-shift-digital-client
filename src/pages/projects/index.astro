@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "src/layout/Layout.astro";
+const ProjectsData = await getCollection("projects");
+const Projects = ProjectsData.filter(
+  (Project) => Project.slug !== "index" && Project.slug.startsWith("project-")
+);
+const ProjectPage = await getEntryBySlug("projects", "index");
+import HeroSection from "src/components/ui/project/HeroSection.astro";
+import { getEntryBySlug } from "astro:content";
+import ProjectsSection from "src/components/ui/project/ProjectsSection.astro";
+---
+
+<Layout title='Projects'>
+  <!-- main content start -->
+  <!-- project-hero section start -->
+  <HeroSection Projects={Projects.slice(0, 3)} ProjectPage={ProjectPage.data} />
+  <!-- project-hero section End -->
+
+  <!--  Project-2 Section Start -->
+  <ProjectsSection Projects={Projects} ProjectPage={ProjectPage.data} />
+  <!-- Project-2 Section End -->
+
+  <!-- main content end -->
+</Layout>

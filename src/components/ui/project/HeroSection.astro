@@ -1,0 +1,33 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+const { Projects, ProjectPage } = Astro.props;
+---
+
+<section
+  class='mt-100 mb-260 max-xl:mb-0 max-md:mt-20 max-sm:mt-060 max-xl:overflow-x-hidden'>
+  <div
+    class='max-w-container-3.5xl mx-auto max-lg:mx-060 max-md:mx-10 max-sm:mx-5'>
+    <div class='block' data-aos='fade-up' data-aos-duration='1500'>
+      <h1
+        class='max-w-732 mx-auto text-center tracking-tightg leading-76 text-68xl font-bold font-fraunces max-lg:text-6xl max-lg:leading-68 max-md:text-52xl max-md:leading-60 max-sm:text-44xl max-sm:leading-52'>
+        {ProjectPage.projectHeader}
+      </h1>
+    </div>
+    <div
+      class='justify-center mt-072 flex max-lg:gap-8 max-lg:flex-col max-lg:mt-060 max-sm:gap-5 max-sm:mt-10'
+      data-aos='fade-up'
+      data-aos-duration='2000'>
+      <div
+        class='top-20 left-47 relative -rotate-20 max-lg:static max-lg:rotate-0'>
+        <ProjectCard project={Projects[0]} size='small' />
+      </div>
+      <div class='justify-center items-end flex relative z-3'>
+        <ProjectCard project={Projects[1]} size='small' />
+      </div>
+      <div
+        class='relative top-20 right-47 rotate-20 max-lg:static max-lg:rotate-0'>
+        <ProjectCard project={Projects[2]} size='small' />
+      </div>
+    </div>
+  </div>
+</section>

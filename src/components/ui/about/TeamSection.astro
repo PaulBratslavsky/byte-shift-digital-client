@@ -1,0 +1,109 @@
+---
+import { Image } from "astro:assets";
+
+const { Team } = Astro.props;
+const { teamTitle, teamButtonText, teamMembers } = Team.data;
+---
+
+<section
+  class='bg-black-strom mt-160 py-140 max-lg:py-100 max-lg:mt-100 max-sm:py-20 max-sm:mt-20'>
+  <div
+    class='max-w-1376 mx-auto max-lg:mx-060 max-md:mx-10 max-sm:mx-5 max-xl:mx-20'>
+    <div
+      class='flex items-end justify-between max-lg:gap-10 max-lg:flex-col max-lg:items-start'
+      data-aos='fade-up'
+      data-aos-duration='1500'>
+      <h1
+        class='max-w-625 text-white my-0 text-64xl font-bold leading-72 font-fraunces max-md:text-56xl max-lg:leading-64 max-md:text-5xl max-md:leading-56 max-sm:text-4xl max-sm:leading-44'>
+        {teamTitle}
+      </h1>
+      <a
+        href='/contact'
+        class='bg-white text-black-strom rounded-sm1 px-6 py-3 text-base font-medium leading-6 transition-opacity duration-300 cursor-pointer no-underline inline-block max-sm:px-5 max-sm:py-010'
+        >{teamButtonText}</a
+      >
+    </div>
+    <div
+      class='mt-16 flex flex-wrap gap-8 max-xl:flex-col max-lg:grid max-lg:gap-8 max-lg:mt-060 max-lg:grid-cols-2 max-md:gap-5 max-sm:grid-cols-1 max-sm:mt-10'>
+      {
+        teamMembers.map((member: any, index: number) => {
+          if (index % 2 === 0) {
+            return (
+              <div
+                class={`${index % 4 === 0 ? "mt-100" : ""} flex-col flex gap-8 max-lg:mt-0 max-md:gap-5 max-sm:gap-5 max-xl:flex-row max-xl:justify-center max-xl:mt-0`}
+                data-aos='fade-up'
+                data-aos-duration='500'>
+                <div class='w-80 rounded-xl overflow-hidden max-lg:w-full'>
+                  <div class='items-end flex relative group'>
+                    <div class='bg-lumber justify-center items-end flex relative overflow-hidden'>
+                      <Image
+                        src={member.image}
+                        class='w-full h-full object-cover saturate-0 group-hover:saturate-100 group-hover:scale-105 transition ease-in-out duration-500'
+                        alt={"Member"}
+                        height={300}
+                        width={300}
+                      />
+                    </div>
+                    <a
+                      href={member.linkedIn}
+                      target='_blank'
+                      class='absolute top-6 right-6 max-w-full inline-block max-md:top-4 max-md:right-4 max-sm:top-6 max-sm:right-6 -translate-y-100 group-hover:translate-y-0 transition ease-in-out duration-500'>
+                      <Image
+                        src='/image/about/LinkedIn.svg'
+                        alt={"LinkedIn"}
+                        height={50}
+                        width={50}
+                      />
+                    </a>
+                  </div>
+                  <div class='bg-raisin-black flex-col justify-center items-center p-5 flex'>
+                    <div class='text-white tracking-tightxl font-medium font-inter'>
+                      {member.post}
+                    </div>
+                    <div class='text-white text-2xl leading-8 font-semibold font-fraunces max-md:text-xl max-md:leading-6'>
+                      {member.name}
+                    </div>
+                  </div>
+                </div>
+                {teamMembers[index + 1] && (
+                  <div class='w-80 rounded-xl overflow-hidden max-lg:w-full'>
+                    <div class='items-end flex relative group'>
+                      <div class='bg-pink-lace justify-center items-end flex relative overflow-hidden'>
+                        <Image
+                          alt='Member'
+                          src={teamMembers[index + 1]?.image}
+                          width={300}
+                          height={300}
+                          class='w-full h-full object-cover saturate-0 group-hover:saturate-100 group-hover:scale-105 transition ease-in-out duration-500'
+                        />
+                      </div>
+                      <a
+                        href={teamMembers[index + 1]?.linkedIn}
+                        target='_blank'
+                        class='absolute top-6 right-6 max-w-full inline-block max-md:top-4 max-md:right-4 max-sm:top-6 max-sm:right-6 -translate-y-100 group-hover:translate-y-0 transition ease-in-out duration-500'>
+                        <Image
+                          src='/image/about/LinkedIn.svg'
+                          alt={"LinkedIn"}
+                          height={50}
+                          width={50}
+                        />
+                      </a>
+                    </div>
+                    <div class='bg-raisin-black flex-col justify-center items-center p-5 flex'>
+                      <div class='text-white tracking-tightxl font-medium font-inter'>
+                        {teamMembers[index + 1]?.post}
+                      </div>
+                      <div class='text-white text-2xl leading-8 font-semibold font-fraunces max-md:text-xl max-md:leading-6'>
+                        {teamMembers[index + 1]?.name}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          }
+        })
+      }
+    </div>
+  </div>
+</section>

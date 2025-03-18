@@ -1,0 +1,50 @@
+{
+  "name": "byte-shift",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev --host",
+    "build": "astro check && astro build",
+    "preview": "astro preview --host",
+    "astro": "astro",
+    "format": "prettier -w ."
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "4.2.0",
+    "@astrojs/react": "4.2.1",
+    "@astrojs/tailwind": "6.0.0",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.22",
+    "aos": "^2.3.4",
+    "astro": "5.5.2",
+    "astro-auto-import": "^0.4.2",
+    "astro-compress": "^2.2.21",
+    "astro-font": "^0.0.78",
+    "autoprefixer": "^10.4.19",
+    "flowbite": "^2.3.0",
+    "github-slugger": "^2.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-toastify": "^10.0.5",
+    "swiper": "^11.1.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "@types/marked": "^5.0.2",
+    "@types/react": "^18.2.54",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.34",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "0.33.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "5.3.3"
+  }
+}

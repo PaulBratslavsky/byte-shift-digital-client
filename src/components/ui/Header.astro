@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+import { getEntryBySlug } from "astro:content";
+const { background } = Astro.props;
+const { data } = await getEntryBySlug("header", "index");
+const { routes, lightLogo, darkLogo, button } = data;
+---
+
+<header class='w-full max-dxl:max-w-container-3xl'>
+  <div
+    class=`${background==='dark'?'bg-black-storm':'bg-white'} text-gray-700 py-6 mx-auto px-7 max-lg:pb-0 max-lg:px-5 max-lg:pt-5 max-w-container-2xl w-full z-99 relative`>
+    <div class='flex items-center justify-between'>
+      <a
+        href='/'
+        class='flex items-center justify-between font-medium title-font text-gray-900'>
+        <!-- <Image
+          alt={"Logo"}
+          height={100}
+          width={100}
+          src={background === "dark" ? lightLogo : darkLogo}
+          class='inline-block h-10 w-32'
+        /> -->
+      <h1 class={`${background === "dark" ? "text-white" : "text-black"} text-2xl font-bold`}>ByteShift Digital</h1>
+      </a>
+      <div class='bg-transparent lg:hidden' id='openModalBtn'>
+        <div
+          class='block p-3 float-right cursor-pointer text-2xl relative'
+          id='openModalBtn'>
+          <div class='normal-case not-italic leading-none'>
+            <svg
+              class='w-6 h-6'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'>
+              <path
+                id='mySvg'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                stroke-width='2'
+                d='M4 6h16M4 12h16M4 18h16'></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class='max-lg:hidden block' id='menu'>
+        <!-- <nav
+          class='items-center mb-0 pl-0 pb-0 flex justify-between max-lg:flex-col'>
+          {
+            routes.map((route: any) => {
+              return (
+                <a
+                  href={route.path}
+                  class={`mx-05 py-05 px-010 leading-6 text-base font-normal tracking-tightl no-underline ${background === "dark" ? "text-white" : "text-black"} font-inter`}>
+                  {route.name}
+                </a>
+              );
+            })
+          }
+        </nav> -->
+      </div>
+
+      <div class='max-lg:hidden'>
+        <a
+          href={button.link}
+          class=`${background==='dark'?'bg-white text-black-storm':'bg-black-strom text-white'} rounded-sm1 py-06 px-5 transition-all font-satoshi duration-0200 leading-6 font-medium text-base inline-block cursor-pointer no-underline border-0`
+          >{button.text}</a
+        >
+      </div>
+    </div>
+  </div>
+  <div
+    class='hidden w-full absolute left-0 right-0 overflow-hidden'
+    id='myModal'>
+    <nav
+      class='transform translate-y-0 translate-x-0 text-center min-w-200 absolute top-0 left-0 right-0 overflow-visible !block z-1'>
+      <div
+        class='gap-6 bg-black-strom flex-wrap flex-col flex justify-around items-center pb-10 pl-0 pt-30 mb-0'>
+        {
+          routes.map((route: any) => {
+            return (
+              <div>
+                <a
+                  href={route.path}
+                  class='mx-05 py-05 px-010 leading-6 text-base font-normal tracking-tightl no-underline text-white font-inter'>
+                  {route.name}
+                </a>
+              </div>
+            );
+          })
+        }
+      </div>
+    </nav>
+  </div>
+</header>
+{
+  background && (
+    <div class='bg-black-strom absolute top-0% left-0% right-0% bottom-auto h-676 max-lg:h-600 max-md:h-500 max-sm:h-450' />
+  )
+}

@@ -1,0 +1,9 @@
+---
+import { Image } from "astro:assets";
+
+const { link, icon } = Astro.props;
+---
+
+<a href={"/"} class='max-w-full inline-block hover:opacity-70' target='_blank'
+  ><Image src={icon} alt={"Icon"} height={30} width={30} /></a
+>

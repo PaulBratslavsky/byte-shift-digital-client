@@ -1,0 +1,48 @@
+---
+import SocailMedia from "./SocailMedia.astro";
+import Form from "../../functional/Form";
+const { socialMedia, index, form } = Astro.props;
+const { header, description, officeLocation } = index;
+---
+
+<div class='bg-black-strom pb-10'>
+  <div
+    class='max-w-container-l justify-between items-center mt-100 mx-auto flex max-xl:gap-20 max-xl:flex-col max-lg:items-start max-xl:mx-20 max-lg:mx-060 max-md:gap-60 max-md:mt-20 max-md:mx-10 max-sm:gap-12 max-sm:mt-060 max-sm:mx-5'>
+    <div
+      class='flex-shrink flex-grow-0 basis-auto'
+      data-aos='fade-up'
+      data-aos-duration='1000'>
+      <h1
+        class='text-white max-w-490 tracking-tightg my-0 text-68xl font-bold leading-72 font-fraunces max-lg:text-56xl max-lg:leading-64 max-md:text-5xl max-md:leading-56 max-sm:text-4xl max-sm:leading-44'>
+        {header}
+      </h1>
+      <div
+        class='max-w-460 text-white mt-010 text-lg leading-7 font-normal font-inter max-xl:max-w-none max-sm:text-base max-sm:leading-5'>
+        {description}
+      </div>
+      <!-- <div class='mt-10 max-sm:mt-5'>
+        <div class='text-white text-2xl font-bold leading-8 font-fraunces'>
+          Office Location
+        </div>
+        <div
+          class='text-white mt-3 max-w-260 text-base font-normal leading-6 font-inter max-sm:text-sm max-xl:max-w-none'>
+          {officeLocation}
+        </div>
+      </div> -->
+      <div class='mt-9 max-sm:mt-5'>
+        <div
+          class='text-white font-2xl font-bold text-2xl font-fraunces leading-8'>
+          Social Media
+        </div>
+        <div class='gap-6 mt-014 flex max-sm:mt-3'>
+          {
+            socialMedia.map((data: any) => (
+              <SocailMedia icon={data.icon} link={data.link} />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <Form client:load form={form} />
+  </div>
+</div>

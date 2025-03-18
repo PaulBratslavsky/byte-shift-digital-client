@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import { slug } from "github-slugger";
+let blogs = await getCollection("blogs");
+const BlogPage = await getEntryBySlug("blogs", "index");
+blogs = blogs.filter((blog) => blog.slug.startsWith("blog-"));
+import Layout from "../../layout/Layout.astro";
+import BlogTabSection from "../../components/ui/blog/BlogTabSection.astro";
+import { getEntryBySlug } from "astro:content";
+import { Image } from "astro:assets";
+import ShareLinks from "../../components/functional/ShareLinks";
+export async function getStaticPaths() {
+  let blogs = await getCollection("blogs");
+  blogs = blogs.filter((blog) => blog.slug.startsWith("blog-"));
+  return blogs.map((blog: any) => {
+    return {
+      params: { single: slug(blog.data.title) },
+      props: { blog },
+    };
+  });
+}
+
+const catogories: Array<string> = [];
+blogs.map((blog) => {
+  catogories.push(blog.data.category);
+});
+const uniqueCatogories = new Set(catogories);
+const { blog } = Astro.props;
+const { data } = blog;
+const { Content } = await blog.render();
+---
+
+<Layout title={data.title || "Blog"}>
+  <!-- blog-single section start -->
+  <section class='mt-100 max-sm:mt-20'>
+    <div
+      class='max-w-container-l mx-auto max-xl:mx-20
+max-lg:mx-060 max-md:mx-10 max-sm:mx-5'>
+      <h1
+        class='max-w-383 mx-auto text-center text-black-strom tracking-tightg my-0 text-64xl font-bold font-fraunces leading-72 max-lg:text-6xl max-lg:leading-68 max-md:text-52xl max-md:leading-60 max-sm:text-44xl max-sm:leading-52'
+        data-aos='fade-up'
+        data-aos-duration='1500'>
+        {data.title}
+      </h1>
+      <div
+        class='w-full h-600 mt-16 max-lg:h-400 max-lg:mt-060 max-md:h-300 max-sm:h-200 max-sm:mt-10'
+        data-aos='fade-up'
+        data-aos-duration='1000'>
+        <Image
+          src={data.image}
+          width={1000}
+          alt={"Blog"}
+          height={1000}
+          class='w-full h-full object-cover rounded-2xl max-sm:rounded-xl'
+        />
+      </div>
+      <div
+        class='gap-120 mt-100 flex relative max-lg:mt-20 max-lg:gap-20 max-md:mt-060 max-md:gap-60 max-sm:gap-5 max-sm:mt-10'
+        data-aos='fade-up'
+        data-aos-duration='500'>
+        <div
+          class='h-180 flex-shrink-0 flex-grow-0 basis-auto sticky top-50 pt-5'>
+          <div
+            class='text-center text-black-strom text-lg font-medium leading-7 max-sm:text-base max-sm:leading-5'>
+            Social links:
+          </div>
+          <ShareLinks client:only/>
+        </div>
+        <div class='w-800 max-lg:w-full'>
+          <Content />
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- blog-single section end-->
+
+  <!-- bog-tab section start -->
+  <BlogTabSection
+    uniqueCatogories={uniqueCatogories}
+    blogs={blogs}
+    BlogPage={BlogPage.data}
+  />
+  <!-- bog-tab section end -->
+</Layout>

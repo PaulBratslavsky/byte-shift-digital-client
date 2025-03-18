@@ -1,0 +1,9 @@
+---
+import { getCollection } from "astro:content";
+
+export const getSinglePage = async (collection: any,match: string) => {
+  const allPage = await getCollection(collection);
+  const singlePage = allPage.filter((data:any) => data.id.match(match));
+  return singlePage[0];
+};
+---

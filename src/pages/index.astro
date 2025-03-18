@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import Testimonial from "../components/functional/Testimonial";
+import HeroSection from "src/components/ui/HeroSection.astro";
+import Brands from "src/components/ui/Brands.astro";
+import Layout from "../layout/Layout.astro";
+import { getEntryBySlug } from "astro:content";
+import Services from "src/components/ui/Services.astro";
+import Approach from "src/components/ui/Approach.astro";
+import ProjectSlider from "src/components/ui/ProjectSlider.astro";
+import WhyBest from "src/components/ui/WhyBest.astro";
+import BlogSection from "src/components/ui/BlogSection.astro";
+const HomePage = await getEntryBySlug("HomePage", "index");
+const ProjectPage = await getEntryBySlug("projects", "index");
+const { projectSliderHeader } = ProjectPage.data;
+const {
+  banner,
+  clientImages,
+  webDesignSteps,
+  agileApproach,
+  expertise,
+  whyBest,
+} = HomePage.data;
+const projectsCollection = await getCollection("projects");
+const projects = projectsCollection.filter((project: any) =>
+  project.slug.startsWith("project-")
+);
+let blogs = await getCollection("blogs");
+blogs = blogs.filter((blog: any) => blog.slug.startsWith("blog-"));
+const BlogPage = await getEntryBySlug("blogs", "index");
+let testimonials = await getCollection("testimonials");
+testimonials = testimonials.filter((testimonial: any) =>
+  testimonial.slug.startsWith("testimonial-")
+);
+const TestimonialPage = await getEntryBySlug("testimonials", "index");
+blogs.sort((a: any, b: any) => b.data.date - a.data.date);
+---
+
+<Layout title='Home' >
+  <!-- hero section start -->
+  <HeroSection banner={banner} />
+  <!-- hero section end -->
+
+  <!-- brand-logos section start -->
+  <!-- <Brands clientImages={clientImages} /> -->
+  <!-- brand-logos section end -->
+
+  <!-- services section start -->
+  <!-- <Services webDesignSteps={webDesignSteps} /> -->
+  <!-- services section end -->
+
+  <!-- content-1 section start -->
+  <!-- <Approach agileApproach={agileApproach} expertise={expertise} /> -->
+  <!-- content-1 section end -->
+
+  <!-- project-slider section start -->
+  <!-- <ProjectSlider projects={projects} projectHeader={projectSliderHeader} /> -->
+  <!-- project-slider section end -->
+
+  <!-- content-2 section start -->
+  <!-- <WhyBest whyBest={whyBest} /> -->
+  <!-- content-2 section end -->
+
+  <!--  testimonial-slider section start -->
+  <!-- <Testimonial
+    client:load
+    testimonials={testimonials}
+    TestimonialPage={TestimonialPage.data}
+  /> -->
+  <!--  testimonial-slider section end-->
+
+  <!-- blog section start -->
+  <!-- <BlogSection blogs={blogs} BlogPage={BlogPage.data}/> -->
+  <!-- blog sction end -->
+</Layout>

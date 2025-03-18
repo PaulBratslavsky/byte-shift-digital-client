@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import { slug } from "github-slugger";
+const { blogs } = Astro.props;
+---
+
+<div
+  class='w-365 flex-shrink-0 flex-grow-0 basis-auto max-lg:w-full'
+  data-aos='fade-up'
+  data-aos-duration='1500'>
+  <div>
+    <div class='gap-8 flex-col flex max-sm:gap-5'>
+      {
+        blogs.map((blog: any) => {
+          return (
+            <div>
+              <a
+                href={`/blogs/${slug(blog.data.title)}`}
+                class='w-full no-underline max-w-full inline-block'>
+                <div class='border border-black-strom flex rounded-sm1 max-xl:flex-col max-xl:gap-7'>
+                  <div class='w-140 h-150 flex-grow-0 flex-shrink-0 basis-auto max-xl:w-full max-sm:h-150'>
+                    <Image
+                      src={blog.data.image}
+                      alt={"Blog"}
+                      height={150}
+                      width={140}
+                      class='w-full h-full object-cover rounded-tl-sm1 rounded-bl-sm1 max-xl:rounded-bl-none max-xl:rounded-tr-sm1'
+                    />
+                  </div>
+                  <div class='flex mx-7 flex-col justify-center flex-shrink flex-grow basis-0% max-xl:mx-0 max-xl:px-5 max-xl:pb-5'>
+                    <div class='text-black-strom text-lg font-medium font-inter leading-7 max-sm:text-base max-sm:leading-5'>
+                      {blog.data.title}
+                    </div>
+                    <div class="text-black-strom bg-[url('/image/blog-cal.svg')] bg-0 bg-no-repeat bg-auto mt-18 pl-26 text-base font-normal font-inter leading-6">
+                      {new Date(blog.data.date).toDateString()}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+
+const { branches, header } = Astro.props;
+---
+
+<section class='mt-160 block max-lg:mt-100 max-sm:mt-20'>
+  <div
+    class='max-w-container-l mx-auto max-xl:mx-20 max-md:mx-10 max-sm:mt-060 max-sm:mx-5'>
+    <h1
+      class='max-w-700 text-center mx-auto text-black-strom tracking-tightg my-0 text-64xl font-bold leading-72 font-fraunces max-lg:text-56xl max-lg:leading-64 max-md:text-5xl max-md:leading-56 max-sm:text-4xl max-sm:leading-44'
+      data-aos='fade-up'
+      data-aos-duration='1500'>
+      {header}
+    </h1>
+    <!-- <div
+      class='gap-8 mt-16 flex max-lg:mt-060 max-lg:flex-col max-sm:gap-5 max-sm:mt-10'>
+      {
+        branches.map(({ data }: any) => {
+          return (
+            <div
+              class='border border-black-strom p-8 rounded-xl max-sm:p-25'
+              style='transform-style:preserve-3d'
+              data-aos='fade-up'
+              data-aos-duration='1000'>
+              <Image src={data.icon} alt={"Branch"} height={100} width={100} />
+              <h1 class='mt-30 tracking-tighth text-26xl text-black-strom font-bold leading-34 font-fraunces max-lg:text-2xl max-sm:mt-5'>
+                {data.name}
+              </h1>
+              <div class='mt-010 mb-8 text-lg font-normal leading-7 text-black-strom font-inter max-sm:text-base max-sm:leading-5 max-sm:mb-5'>
+                {data.address}
+              </div>
+              <a
+                href='/about'
+                class='no-underline inline-block overflow-hidden max-w-full group text-black-strom text-lg font-semibold font-inter max-sm:text-base after:h-px after:w-full after:translate-x-100 after:bg-black-strom after:absolute after:bottom-0 after:-left-[100px] hover:after:translate-x-[30%] after:transition after:duration-500 after:ease-in-out relative'>
+                Discover More
+              </a>
+            </div>
+          );
+        })
+      }
+    </div> -->
+  </div>
+</section>

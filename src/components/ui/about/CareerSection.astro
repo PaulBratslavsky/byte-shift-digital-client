@@ -1,0 +1,63 @@
+---
+import { Image } from "astro:assets";
+
+const { Experts } = Astro.props;
+const { expertTitle, Techonlogies } = Experts.data;
+---
+
+<section class='mt-160 max-lg:mt-100 max-sm:mt-20'>
+  <div
+    class='max-w-900 mx-auto max-xl:mx-20 max-lg:mx-060 max-md:mx-10 max-sm:mx-5'>
+    <div>
+      <h1
+        data-aos='fade-up'
+        data-aos-duration='1500'
+        class='max-w-732 mx-auto text-center text-black-strom tracking-tightg text-64xl leading-72 font-bold font-fraunces max-md:text-56xl max-lg:leading-64 max-md:text-5xl max-md:leading-56 max-sm:text-4xl max-sm:leading-44'>
+        {expertTitle}
+      </h1>
+    </div>
+    <div class='mt-16 max-lg:mt-060 max-sm:mt-10'>
+      {
+        Techonlogies.map((technology: any) => {
+          return (
+            <div
+              class='h-136 gap-0 grid-cols-3 border-t border-t-black-strom justify-between px-5 items-center grid max-lg:h-120 max-lg:px-010 max-md:h-auto max-md:gap-5 max-md:grid-cols-1 max-md:pt-6 max-sm:py-5'
+              data-aos='fade-up'
+              data-aos-duration='1500'>
+              <div class='w-324 max-lg:w-auto max-md:flex max-md:justify-center max-md:items-center'>
+                <Image
+                  src={technology.image}
+                  class='max-sm:w-120'
+                  alt={"Technology"}
+                  height={150}
+                  width={150}
+                />
+              </div>
+              <div class='flex gap-010 items-center max-md:justify-center'>
+                {technology.tags.map((tag: any) => {
+                  return (
+                    <div class='py-05 px-3 rounded-md bg-black-strom max-sm:px-010'>
+                      <div class='text-white tracking-tight2xl uppercase font-semibold max-sm:text-xs max-sm:leading-18'>
+                        {tag}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div class='flex justify-end max-md:justify-center'>
+                <ul class='mb-0 pl-0'>
+                  <li class='text-black-strom pl-0 text-base leading-6 list-disc'>
+                    <div class='font-normal'>
+                      {new Date(technology.startDate).toDateString()} -{" "}
+                      {new Date(technology.endDate).toDateString()}
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

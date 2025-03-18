@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import { slug } from "github-slugger";
+const { project, size } = Astro.props;
+---
+
+<a
+  href={`/projects/${slug(project.data.name)}`}
+  class='w-auto no-underline inline-block'>
+  <div class='justify-center items-end flex relative'>
+    <div
+      class=`${size==='small'?'w-420 h-560':'w-564 h-580'} max-xl:w-full max-xl:h-500 max-md:h-500 max-sm:h-400`>
+      <Image
+        src={project.data.image}
+        alt={"Project"}
+        height={400}
+        width={400}
+        class='w-full h-full object-cover rounded-xl'
+      />
+    </div>
+    <div
+      class=`${size==='small'?'w-388':'w-532'}  bg-white rounded-sm1 justify-between items-center mb-4 py-7 pl-7 pr-8 flex absolute max-xl:w-90% max-md:w-95% max-sm:gap-010 max-sm:p-5`>
+      <div class="w-2/3">
+        <h1
+          class='text-black-strom tracking-tighth my-0 text-26xl font-bold font-fraunces leading-34 max-sm:text-xl max-sm:leading-6'>
+          {project.data.name}
+        </h1>
+        <div class='gap-010 mt-014 flex flex-wrap'>
+          {
+            project.data.services.map((service: any) => {
+              return (
+                <ul class='text-black-strom mb-0 pl-5 list-disc max-sm:pl-4'>
+                  <li>
+                    <div class='text-black-strom text-base font-normal leading-6 font-inter max-sm:text-sm max-sm:leading-5'>
+                      {service}
+                    </div>
+                  </li>
+                </ul>
+              );
+            })
+          }
+        </div>
+      </div>
+      <div
+        class='inline-block overflow-hidden no-underline after:h-px after:w-full after:translate-x-100 after:bg-black-strom after:absolute after:bottom-0 after:-left-[100px] hover:after:translate-x-[30%] after:transition after:duration-500 after:ease-in-out relative'>
+        <div
+          class=`${size==='small'?'text-sm':'text-lg '} font-inter font-semibold text-black-strom max-sm:text-base`>
+          Discover More
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
